@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-thetravellogger2022-dev-160937-authRole",
+      "UnauthRoleArn": "arn:aws:iam::419068846218:role/amplify-thetravellogger2022-dev-160937-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::419068846218:role/amplify-thetravellogger2022-dev-160937-authRole",
+      "Region": "eu-west-2",
+      "DeploymentBucketName": "amplify-thetravellogger2022-dev-160937-deployment",
+      "UnauthRoleName": "amplify-thetravellogger2022-dev-160937-unauthRole",
+      "StackName": "amplify-thetravellogger2022-dev-160937",
+      "StackId": "arn:aws:cloudformation:eu-west-2:419068846218:stack/amplify-thetravellogger2022-dev-160937/ab4491c0-97e7-11ec-a5a6-0a2c12dcabb8",
+      "AmplifyAppId": "d2drtpkfb729r"
+    },
+    "categories": {
+      "auth": {
+        "thetravellogger2022af26b051": {}
+      }
+    }
+  }
+}

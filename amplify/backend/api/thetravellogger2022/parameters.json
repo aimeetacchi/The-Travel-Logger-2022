@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "thetravellogger2022",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "auththetravellogger2022af26b051",
+      "Outputs.UserPoolId"
+    ]
+  }
+}

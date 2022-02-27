@@ -1,0 +1,29 @@
+type S3Object {
+  bucket: String!
+  region: String!
+  key: String!
+}
+
+type Places @model
+  @auth(rules: [{ allow: owner }]) {
+    id: ID!
+    city: String!
+    country: String!
+    description: String
+    dateVisitedFrom: AWSDate
+    dateVisitedTo: AWSDate
+    favourite: Boolean
+    visited: Boolean
+    
+    # Reference the S3Object type from a field
+    file: S3Object
+}
+
+type User @model
+@auth(rules: [{ allow: owner }]) {
+    id: ID!
+    name: String
+    location: String
+    bio: String
+    CountriesTotal: String
+}

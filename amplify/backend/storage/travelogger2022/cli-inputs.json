@@ -1,0 +1,14 @@
+{
+  "resourceName": "travelogger2022",
+  "policyUUID": "6d872dac",
+  "bucketName": "thetravellogger2022bucket",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}
