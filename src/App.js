@@ -1,5 +1,9 @@
+import React, { useEffect, useState } from 'react'
+import { Route, Routes, useNavigate } from 'react-router-dom'
+import { Auth } from 'aws-amplify';
+import { onAuthUIStateChange, AuthState} from '@aws-amplify/ui-components';
+
 import '@fontsource/roboto';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { createTheme, ThemeProvider } from '@material-ui/core/';
 
 import {
@@ -8,10 +12,11 @@ import {
 } from '@material-ui/core/';
 
 import './App.scss';
-// import { AccessibilityWidget } from 'react-accessibility';
+
 import Header from './components/header';
 import Hero from './components/hero';
 
+import SignInForm from './components/pages/SignInForm'
 import Home from './components/homePage';
 import Profile from './components/profilePage';
 import Places from './components/placesPage';
@@ -76,24 +81,61 @@ const useStyles = makeStyles({
 })
 
 const App = () => {
+  const [authState, setAuthState] = useState();
+  const [/*user,*/, setUser] = useState();
+
   const classes = useStyles();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    
+    if(authState === 'signedin') {
+      navigate('/');
+    }
+
+    if (authState === undefined) {
+      Auth.currentAuthenticatedUser().then(authData => {
+        setAuthState(AuthState.SignedIn);
+        setUser(authData);
+      });
+    }
+
+    return onAuthUIStateChange((nextAuthState, authData) => {
+      setAuthState(nextAuthState);
+      setUser(authData);
+      console.log('auth state changing');
+    });
+  // eslint-disable-next-line  
+}, [authState]);
+
+  const signOut = async () => {
+    try {
+        await Auth.signOut()
+        // setLoggedIn(false)
+        navigate('/signin');
+    } catch (error) {
+        console.log('Error Signing out', error,)
+    }
+  }
+
   return (
     <ThemeProvider theme={theme}>
-      {/* 
-      <AccessibilityWidget/> */}
-      <Router>
+   
         <Box className={classes.root}>
-          <Header />
+          <Header authState={authState} signOut={signOut}/>
           <Hero />
+          <main>
           <Container maxWidth="lg">
-            <Switch>
-              <Route path="/" exact component={Home} />
-              <Route path="/profile/" component={Profile} />
-              <Route path="/places/" component={Places} />
-            </Switch>
+            <Routes>
+            <Route exact path="/signin" element={<SignInForm authState={authState}/>}/>
+              <Route path="/" exact element={<Home/>} />
+              <Route path="/profile/" element={<Profile/>} />
+              <Route path="/places/" element={<Places/>} />
+            </Routes>
           </Container>
+          </main>
         </Box>
-      </Router>
+      
     </ThemeProvider>
   );
 }
