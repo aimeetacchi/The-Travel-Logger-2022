@@ -1,12 +1,12 @@
 import React from 'react'
 
-import AddPlace from './addPlace';
-import Places from './places';
+import AddPlace from '../addPlace';
+import Places from '../places';
 
 import {
     Grid,
     Container,
-} from '@material-ui/core/';
+} from '@mui/material';
 
 const placesPage = () => {
     return (
@@ -18,7 +18,7 @@ const placesPage = () => {
             </Grid>
             <Grid item xs={12}>
                 <Container maxWidth="md">
-                    <Places /> 
+                    <Places />
                 </Container>
             </Grid>
         </Grid>

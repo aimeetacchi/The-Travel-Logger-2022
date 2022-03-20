@@ -4,100 +4,34 @@ import { Auth } from 'aws-amplify';
 import { onAuthUIStateChange, AuthState} from '@aws-amplify/ui-components';
 
 import '@fontsource/roboto';
-import { createTheme, ThemeProvider } from '@material-ui/core/';
-
-import {
-  Container,
-  Box,
-} from '@material-ui/core/';
+import { Box, Container } from '@mui/material';
 
 import './App.scss';
 
-import Header from './components/header';
-import Hero from './components/hero';
+import Header from './components/header/header';
+import Hero from './components/hero/hero';
 
+import Home from './components/pages/homePage';
+import Places from './components/pages/placesPage';
+import Profile from './components/pages/profilePage';
 import SignInForm from './components/pages/SignInForm'
-import Home from './components/homePage';
-import Profile from './components/profilePage';
-import Places from './components/placesPage';
-import { makeStyles } from '@material-ui/core/styles';
-
-const theme = createTheme({
-  breakpoints: {
-    values: {
-      xxs: 0, // small phone
-      xs: 300, // phone
-      sm: 600, // tablets
-      md: 900, // small laptop
-      lg: 1200, // desktop
-      xl: 1536 // large screens
-    }
-  },
-  palette: {
-    primary: {
-      main: '#38A3A5',
-    },
-    secondary: {
-      main: '#22577A'
-    }
-  },
-  typography: {
-    fontFamily: 'Lato',
-    fontWeightLight: 300,
-    fontWeightRegular: 400,
-    fontWeightBold: 700,
-    h1: {
-      fontSize: '2.8rem',
-    },
-    h2: {
-      fontSize: '2.5rem',
-    },
-    h3: {
-      fontSize: '2.3rem',
-    },
-    h4: {
-      fontSize: '2rem',
-    },
-    h5: {
-      fontSize: '1.8rem',
-    },
-    h6: {
-      fontSize: '1.4rem',
-    },
-    body1: {
-      fontWeight: 400,
-      fontSize: '1rem',
-   },
-   body2: {
-    fontWeight: 400,
-    fontSize: '1rem',
-  },
-  }
-})
-
-const useStyles = makeStyles({
-  root: {
-  }
-})
+import Error from './components/pages/Error'
 
 const App = () => {
   const [authState, setAuthState] = useState();
   const [/*user,*/, setUser] = useState();
 
-  const classes = useStyles();
   const navigate = useNavigate();
 
   useEffect(() => {
     
-    if(authState === 'signedin') {
-      navigate('/');
-    }
-
     if (authState === undefined) {
       Auth.currentAuthenticatedUser().then(authData => {
         setAuthState(AuthState.SignedIn);
         setUser(authData);
       });
+    } else if (authState === 'signedin') {
+      navigate('/places');
     }
 
     return onAuthUIStateChange((nextAuthState, authData) => {
@@ -119,24 +53,21 @@ const App = () => {
   }
 
   return (
-    <ThemeProvider theme={theme}>
-   
-        <Box className={classes.root}>
-          <Header authState={authState} signOut={signOut}/>
-          <Hero />
-          <main>
-          <Container maxWidth="lg">
-            <Routes>
-            <Route exact path="/signin" element={<SignInForm authState={authState}/>}/>
-              <Route path="/" exact element={<Home/>} />
+      <Box /*className={classes.root}*/>
+        <Header authState={authState} signOut={signOut}/>
+        <Hero />
+        <main>
+        <Container maxWidth="lg">
+          <Routes>
+          <Route exact path="/signin" element={<SignInForm authState={authState}/>}/>
+            <Route path="/" exact element={<Home/>} />
               <Route path="/profile/" element={<Profile/>} />
               <Route path="/places/" element={<Places/>} />
-            </Routes>
-          </Container>
-          </main>
-        </Box>
-      
-    </ThemeProvider>
+              <Route path="*" element={<Error/>} />
+          </Routes>
+        </Container>
+        </main>
+      </Box>
   );
 }
 

@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import {
     Box,
     Typography,
-  } from '@material-ui/core/';
+} from '@mui/material';
 
 const Profile = () => {
     const profileState = useSelector((state) => state.profile.data);
@@ -12,8 +12,8 @@ const Profile = () => {
     return (
         <Box>
             <Typography variant="h3">Name: {profile.name}</Typography>
-            <Typography variant="body2">Location: {profile.location}</Typography> 
-            <Typography variant="body2">Bio: {profile.bio}</Typography> 
+            <Typography variant="body2">Location: {profile.location}</Typography>
+            <Typography variant="body2">Bio: {profile.bio}</Typography>
         </Box>
     )
 }
