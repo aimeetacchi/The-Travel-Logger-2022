@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Storage } from 'aws-amplify'
 
-import { addNewPlace } from '../actions/places'
+import { addNewPlace } from '../../actions/places'
 import { useDispatch } from 'react-redux'
 
-import awsExports from '../aws-exports'
-
-// import { makeStyles } from '@mui/styles';
+import awsExports from '../../aws-exports'
+import AddPlaceStyles from './styles';
 
 import {
     TextField,
@@ -17,51 +16,7 @@ import {
 } from '@mui/material';
 
 
-
-// const useStyles = makeStyles({
-//     root: {
-//         width: '100%',
-//     },
-//     container: {
-//         backgroundColor: '#38a3a5',
-//         position: 'relative',
-//         margin: '0 auto',
-//         display: 'flex',
-//         flexDirection: 'column',
-//         justifyContent: 'center',
-//         padding: '20px 40px',
-//         marginTop: -40,
-
-//     },
-//     formField: {
-//         width: '100%',
-//         marginTop: 20,
-//         marginBottom: 20,
-//         '& label': {
-//             color: 'white',
-//         },
-//         '& fieldset': {
-//             color: 'white',
-//             borderColor: 'white',
-//         }
-//     },
-//     submitbutton: {
-//         backgroundColor: '#57CC99',
-//         color: 'white',
-//         outline: 'none',
-//         fontSize: 18,
-//         padding: '12px 0px',
-//         border: 'none',
-//         width: '100%',
-
-//         '&:hover': {
-//             backgroundColor: '#80ED99',
-//         }
-//     }
-// })
-
 const AddPlace = () => {
-    // const classes = useStyles();
     const firstTimeRender = useRef(true);
 
     const [formState, setFormState] = useState({
@@ -153,12 +108,12 @@ const AddPlace = () => {
     }, [])
 
     return (
-        <Box mb={5} /*className={classes.root}*/>
-            <form /*className={classes.container}*/ onSubmit={addPlace}>
+        <AddPlaceStyles mb={5}>
+            <form className="container" onSubmit={addPlace}>
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={6}>
                         <TextField
-                            /*className={classes.formField}*/
+                            className="formField"
                             label="Add Country"
                             variant="outlined"
                             color="secondary"
@@ -171,7 +126,7 @@ const AddPlace = () => {
                     </Grid>
                     <Grid item xs={12} md={6}>
                         <TextField
-                            /*className={classes.formField}*/
+                            className="formField"
                             label="Add City"
                             variant="outlined"
                             color="secondary"
@@ -184,7 +139,7 @@ const AddPlace = () => {
                     </Grid>
                     <Grid item xs={12} md={6}>
                         <TextField
-                            /*className={classes.formField}*/
+                            className="formField"
                             label="Add Description"
                             variant="outlined"
                             color="secondary"
@@ -202,7 +157,7 @@ const AddPlace = () => {
                             <label htmlFor="start">Start date:</label>
                             <input
                                 onChange={e => setInput('dateVisitedFrom', e.target.value)}
-                                /*className={classes.formField}*/
+                                className="formField"
                                 type="date"
                                 id="start"
                                 name="trip-start"
@@ -213,7 +168,7 @@ const AddPlace = () => {
                             <label htmlFor="start">End date:</label>
                             <input
                                 onChange={e => setInput('dateVisitedTo', e.target.value)}
-                                /*className={classes.formField}*/
+                                className="formField"
                                 type="date"
                                 id="end"
                                 name="trip-end"
@@ -242,11 +197,11 @@ const AddPlace = () => {
                         />
                     </Grid>
                     <Grid item xs={12} md={6}>
-                        <input type="submit" /*className={classes.submitbutton}*/ value="Add Place" />
+                        <input type="submit" className="submitbutton" value="Add Place" />
                     </Grid>
                 </Grid>
             </form>
-        </Box>
+        </AddPlaceStyles>
     )
 }
 

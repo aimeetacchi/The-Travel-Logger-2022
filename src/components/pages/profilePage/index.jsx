@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { API, graphqlOperation } from 'aws-amplify'
-import { listUsers } from '../../graphql/queries'
-import { createUser } from '../../graphql/mutations'
-import { getProfile, failedGetProfile, completeGetProfile, createProfile, failedCreateProfile, createProfileComplete } from '../../actions/profile'
+import { listUsers } from '../../../graphql/queries'
+import { createUser } from '../../../graphql/mutations'
+import { getProfile, failedGetProfile, completeGetProfile, createProfile, failedCreateProfile, createProfileComplete } from '../../../actions/profile'
 import { useDispatch, useSelector } from 'react-redux'
-// import { makeStyles } from '@mui/styles';
 
-import Profile from '../profile';
+import Profile from '../../profile';
 
 import {
     Box,
@@ -14,46 +13,9 @@ import {
     Typography,
 } from '@mui/material';
 
-// const useStyles = makeStyles({
-//     root: {
-//         width: '100%',
-//     },
-//     container: {
-//         width: 400,
-//         padding: 0,
-//         margin: '0 auto',
-//         display: 'flex',
-//         flexDirection: 'column',
-//         justifyContent: 'center'
-//     },
-//     formField: {
-//         width: '100%',
-//         marginTop: 20,
-//         marginBottom: 20,
-//         '& label': {
-//             color: 'white',
-//         },
-//         '& fieldset': {
-//             color: 'white',
-//             borderColor: 'white',
-//         }
-//     },
-//     submitbutton: {
-//         backgroundColor: 'rebeccaPurple',
-//         color: 'white',
-//         outline: 'none',
-//         fontSize: 18,
-//         padding: '12px 0px',
-//         border: 'none',
-
-//         '&:hover': {
-//             backgroundColor: 'purple',
-//         }
-//     }
-// })
+import ProfilePageStyles from './styles'
 
 const ProfilePage = () => {
-    // const classes = useStyles();
     const profileState = useSelector((state) => state.profile.data);
 
     const [formState, setFormState] = useState({
@@ -114,15 +76,15 @@ const ProfilePage = () => {
     }, [])
 
     return (
-        <>
+        <ProfilePageStyles>
             <Box m={5} align='center'>
                 {!profileState.length < 1 ? (<Profile />) : <Typography variant="body2">You have not set up your profile yet. Fill out form below</Typography>}
             </Box>
             {profileState.length < 1 &&
                 <Box m={5}>
-                    <form /*className={classes.container}*/ onSubmit={createUserProfile}>
+                    <form className="container" onSubmit={createUserProfile}>
                         <TextField
-                            /*className={classes.formField}*/
+                            className="formField"
                             label="Add Name"
                             variant="outlined"
                             color="primary"
@@ -132,7 +94,7 @@ const ProfilePage = () => {
                         // error={countryErr}
                         />
                         <TextField
-                            /*className={classes.formField}*/
+                            className="formField"
                             label="Add Location"
                             variant="outlined"
                             color="primary"
@@ -143,7 +105,7 @@ const ProfilePage = () => {
                         />
 
                         <TextField
-                            /*className={classes.formField}*/
+                            className="formField"
                             label="Add Bio"
                             variant="outlined"
                             color="primary"
@@ -155,11 +117,11 @@ const ProfilePage = () => {
                         // error={descriptionErr}
                         />
 
-                        <input type="submit" /*className={classes.submitbutton}*/ value="Create Profile" />
+                        <input type="submit" className="submitbutton" value="Create Profile" />
                     </form>
                 </Box>
             }
-        </>
+        </ProfilePageStyles>
     )
 }
 

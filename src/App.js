@@ -8,13 +8,13 @@ import { Box, Container } from '@mui/material';
 
 import './App.scss';
 
-import Header from './components/header/header';
-import Hero from './components/hero/hero';
+import Header from './components/header';
+import Hero from './components/hero';
 
 import Home from './components/pages/homePage';
 import Places from './components/pages/placesPage';
 import Profile from './components/pages/profilePage';
-import SignInForm from './components/pages/SignInForm'
+import SignInForm from './components/pages/signInForm'
 import Error from './components/pages/Error'
 
 const App = () => {

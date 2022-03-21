@@ -1,7 +1,7 @@
 import React from 'react'
 
-import AddPlace from '../addPlace';
-import Places from '../places';
+import AddPlace from '../../addPlace';
+import Places from '../../places';
 
 import {
     Grid,

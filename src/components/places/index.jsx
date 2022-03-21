@@ -3,36 +3,20 @@ import PropTypes from 'prop-types'
 import _ from 'lodash'
 
 import { API, graphqlOperation } from 'aws-amplify'
-import { listPlaces } from '../graphql/queries'
+import { listPlaces } from '../../graphql/queries'
 
-import Search from './search'
+import { getPlaces, deleteSelectedPlace, sortByAsc, sortByDesc } from '../../actions/places'
+import { useDispatch, useSelector } from 'react-redux'
+
+import Search from '../search'
 import PlacesItem from './placesItem'
 // import Pagination from './pagination'
 
-import { getPlaces, deleteSelectedPlace, sortByAsc, sortByDesc } from '../actions/places'
-import { useDispatch, useSelector } from 'react-redux'
-
-// import { makeStyles } from '@mui/styles';
 import { Box, Typography, Grid } from '@mui/material';
-
-
-// const useStyles = makeStyles({
-//   root: {
-//     width: '100%',
-//   },
-//   container: {
-//     width: '100%',
-//     margin: '20px auto',
-//     // display: 'flex',
-//     // flexDirection: 'column',
-//     // justifyContent: 'center'
-//   },
-
-// })
+import PagesStyles from './styles';
 
 // const Places = ({ places: { data, loading, completeDeletedPlace }, getPlaces, deleteSelectedPlace}) => {
 const Places = () => {
-  // const classes = useStyles();
 
   const [search, setSearch] = useState('');
   const [searchParam] = useState(["city", "country"]);
@@ -100,8 +84,6 @@ const Places = () => {
 
   // Change Page
   // const paginate = (pageNumber) => setCurrentPage(pageNumber)
-
-
 
   // const usePrevious = (value) => {
   //   const ref = useRef();
@@ -196,7 +178,7 @@ const Places = () => {
   // }
 
   return (
-    <>
+    <PagesStyles>
       {data.length > 0 &&
         <Search
           search={search}
@@ -205,7 +187,7 @@ const Places = () => {
           sortByASC={sortByASC}
         />
       }
-      <Box /*className={classes.container}*/>
+      <Box className="container">
         <Grid container spacing={4}>
           {data.length > 0 ?
             searchPlace(data).map((place, index) => (
@@ -223,7 +205,7 @@ const Places = () => {
           <Button onClick={next} variant="outlined">Next</Button> */}
 
       </Box>
-    </>
+    </PagesStyles>
   )
 }
 

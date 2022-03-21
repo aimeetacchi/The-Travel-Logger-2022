@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
-// import { makeStyles } from '@mui/styles';
 
 import {
-    Box,
     TextField,
     Typography,
     Select,
@@ -11,39 +9,11 @@ import {
     InputLabel
 } from '@mui/material';
 
-// const useStyles = makeStyles({
-//     root: {
-//         width: '100%',
-//         background: '#397eac',
-//         padding: 20,
-//     },
-//     container: {
-//         width: 400,
-//         padding: 0,
-//         margin: '0 auto',
-//         display: 'flex',
-//         flexDirection: 'column',
-//         justifyContent: 'center'
-//     },
-//     formField: {
-//         width: '100%',
-//         marginTop: 20,
-//         marginBottom: 20,
-//         '& label': {
-//             color: 'white',
-//         },
-//         '& fieldset': {
-//             color: 'white',
-//             borderColor: 'white',
-//         }
-//     }
-// })
-
+import SearchStyles from './styles'
 
 const Search = ({ search, setSearch, sortByASC, sortByDESC }) => {
     const [AscValue, setASC] = useState('');
     const [DescValue, setDESC] = useState('');
-    // const classes = useStyles();
 
     const handleAscChange = (e) => {
         setASC(e.target.value)
@@ -56,10 +26,10 @@ const Search = ({ search, setSearch, sortByASC, sortByDESC }) => {
     }
 
     return (
-        <Box /*className={classes.root}*/>
+        <SearchStyles>
             <Typography variant="body2">Filters:</Typography>
             <TextField
-                /*className={classes.formField}*/
+                className="formField"
                 label="Search Place"
                 variant="outlined"
                 color="primary"
@@ -68,8 +38,6 @@ const Search = ({ search, setSearch, sortByASC, sortByDESC }) => {
                 placeholder="Search Place..."
             />
             <Typography variant="body2">Sort By:</Typography>
-
-
 
             <FormControl fullWidth>
                 <InputLabel id="asc-select">ASC</InputLabel>
@@ -100,7 +68,7 @@ const Search = ({ search, setSearch, sortByASC, sortByDESC }) => {
                     <MenuItem value={"dateVisitedFrom"}>Date Visited</MenuItem>
                 </Select>
             </FormControl>
-        </Box>
+        </SearchStyles>
     )
 }
 
