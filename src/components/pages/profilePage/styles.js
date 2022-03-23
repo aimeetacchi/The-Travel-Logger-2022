@@ -14,19 +14,19 @@ const ProfilePageStyles = styled(Box)`
         justify-content: center;
     }
 
-//     .formField {
-//         width: 100%;
-//         margin-top: 20px;
-//         margin-bottom: 20px;
-//       
-        /* & label { */
-//             color: white;
-//         }
-//         & .fieldset {
-//             color: white;
-//             border-color: white;
-//         }
-//     }
+    .formField {
+        width: 100%;
+        margin-top: 20px;
+        margin-bottom: 20px;
+
+        & label {
+            color: white;
+        }
+        & .fieldset {
+            color: white;
+            border-color: white;
+            }
+        }
 
     .submitbutton {
         background-color: rebeccaPurple;

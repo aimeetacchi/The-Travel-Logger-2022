@@ -87,18 +87,18 @@ const AddPlace = () => {
         }
     }
 
-    // Calling Add Place API function
-    const callAPIcreatePlaces = (place) => {
-        // RUN ADD ACTION === PASSING THE RETURNED DATA ADDED TO API
-        dispatch(addNewPlace(place));
-        // Empty Form State ---
-    }
+    // // Calling Add Place API function
+    // const callAPIcreatePlaces = (place) => {
+    //     // RUN ADD ACTION === PASSING THE RETURNED DATA ADDED TO API
+
+    //     // Empty Form State ---
+    // }
 
     useEffect(() => {
 
         if (!firstTimeRender.current) {
             console.log("places data has changes to running use effect")
-            callAPIcreatePlaces(place);
+            dispatch(addNewPlace(place));
         }
         // eslint-disable-next-line
     }, [place])

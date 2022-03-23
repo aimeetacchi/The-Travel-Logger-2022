@@ -5,7 +5,7 @@ import { createUser } from '../../../graphql/mutations'
 import { getProfile, failedGetProfile, completeGetProfile, createProfile, failedCreateProfile, createProfileComplete } from '../../../actions/profile'
 import { useDispatch, useSelector } from 'react-redux'
 
-import Profile from '../../profile';
+import Profile from '../../profile'
 
 import {
     Box,

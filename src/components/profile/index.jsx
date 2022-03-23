@@ -8,12 +8,12 @@ import {
 
 const Profile = () => {
     const profileState = useSelector((state) => state.profile.data);
-    const profile = profileState[0];
+    const { name, location, bio } = profileState[0];
     return (
         <Box>
-            <Typography variant="h3">Name: {profile.name}</Typography>
-            <Typography variant="body2">Location: {profile.location}</Typography>
-            <Typography variant="body2">Bio: {profile.bio}</Typography>
+            <Typography variant="h3">{name}</Typography>
+            <Typography variant="body2">{location}</Typography>
+            <Typography variant="body2">{bio}</Typography>
         </Box>
     )
 }
