@@ -1,10 +1,7 @@
 import React from 'react'
 import { AmplifyAuthenticator, AmplifySignUp, AmplifySignIn } from '@aws-amplify/ui-react';
 
-// import styled from 'styled-components';
-
 const SignInForm = (props) => {
-
     const { authState } = props;
     console.log('AuthState SigninForm Page', authState);
 

@@ -15,6 +15,7 @@ import Home from './components/pages/homePage';
 import Places from './components/pages/placesPage';
 import Profile from './components/pages/profilePage';
 import SignInForm from './components/pages/signInForm'
+
 import Error from './components/pages/Error'
 
 const App = () => {
