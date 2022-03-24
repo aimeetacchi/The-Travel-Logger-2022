@@ -1,7 +1,7 @@
 import React from 'react'
 import { AmplifyAuthenticator, AmplifySignUp, AmplifySignIn } from '@aws-amplify/ui-react';
 
-const SignInForm = (props) => {
+const SignInPage = (props) => {
     const { authState } = props;
     console.log('AuthState SigninForm Page', authState);
 
@@ -38,4 +38,4 @@ const SignInForm = (props) => {
     )
 }
 
-export default SignInForm
+export default SignInPage

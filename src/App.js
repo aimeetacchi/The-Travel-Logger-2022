@@ -14,7 +14,7 @@ import Hero from './components/hero';
 import Home from './components/pages/homePage';
 import Places from './components/pages/placesPage';
 import Profile from './components/pages/profilePage';
-import SignInForm from './components/pages/signInForm'
+import SignIn from './components/pages/signInPage';
 
 import Error from './components/pages/Error'
 
@@ -58,15 +58,15 @@ const App = () => {
         <Header authState={authState} signOut={signOut}/>
         <Hero />
         <main>
-        <Container maxWidth="lg">
-          <Routes>
-          <Route exact path="/signin" element={<SignInForm authState={authState}/>}/>
-            <Route path="/" exact element={<Home/>} />
-              <Route path="/profile/" element={<Profile/>} />
-              <Route path="/places/" element={<Places/>} />
-              <Route path="*" element={<Error/>} />
-          </Routes>
-        </Container>
+          <Container maxWidth="lg">
+            <Routes>
+            <Route exact path="/signin" element={<SignIn authState={authState}/>}/>
+              <Route path="/" exact element={<Home/>} />
+                <Route path="/profile/" element={<Profile/>} />
+                <Route path="/places/" element={<Places/>} />
+                <Route path="*" element={<Error/>} />
+            </Routes>
+          </Container>
         </main>
       </Box>
   );
