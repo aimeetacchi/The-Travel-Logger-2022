@@ -8,20 +8,6 @@ import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 
 
-// export const TestProvider = ({ children, route = '', store = {} }) => {
-//     const reduxStore = createStore(reducer, store || {}, applyMiddleware(thunk));
-
-//     return (
-//         <Provider store={reduxStore}>
-//             <MemoryRouter initialEntries={route ? [route] : undefined}>
-//                 <ThemeProvider theme={theme}>
-//                     {children}
-//                 </ThemeProvider>
-//             </MemoryRouter>
-//         </Provider>
-//     );
-// }
-
 // component is ui
 export const Render = (ui, options = {}) => {
     const { reduxState, route } = options;
