@@ -4,7 +4,7 @@ import styled, { withTheme } from "styled-components";
 const SearchStyles = styled(Box)`
     width: 100%;
     background: #397eac;
-    padding: 20;
+    padding: 20px;
     
     .container {
         width: 400;

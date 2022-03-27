@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux';
+import 'mapbox-gl/dist/mapbox-gl.css';
 import './index.css';
 import App from './App';
 import { ThemeProvider } from 'styled-components';

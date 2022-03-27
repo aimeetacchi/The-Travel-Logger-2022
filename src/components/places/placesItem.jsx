@@ -1,65 +1,42 @@
 import dayjs from 'dayjs';
 import PropTypes from 'prop-types'
 
-// import { makeStyles } from '@mui/styles';
 import { Card, CardContent, Typography, Grid } from '@mui/material';
 import { FavoriteBorderRounded, InfoOutlined, DeleteForever } from '@mui/icons-material';
 
-// const useStyles = makeStyles({
-//   root: {
-//   },
-//   place: {
-//     marginBottom: 15
-//   },
-//   placeCountry: {
-//     fontSize: 25,
-//     fontWeight: 'bold'
-//   },
-//   placeCity: {
-//     fontSize: 20,
-//     fontWeight: 'bold'
-//   },
-//   placeDescription: {
-//     padding: '10px 0',
-//     marginBottom: 0
-//   },
-//   placeDate: {
-//   },
-//   placeImg: {
-//     width: '100%',
-//     objectFit: 'cover',
-//     height: 300,
-//   },
-// })
+import PlacesGridStyles from './styles';
 
-function PlacesItem({ place, deletePlace }) {
-  // const classes = useStyles();
 
+const PlacesItem = ({ place, deletePlace }) => {
 
   return (
-    <Grid /*className={classes.root}*/ item xs={12} md={6}>
-      <Card key={place.id} /*className={classes.place}*/>
-        <div onClick={() => deletePlace(place.id)} /*className={classes.delete}*/><DeleteForever /></div>
+    <PlacesGridStyles item xs={12} md={6}>
+      <Card key={place.id} className="place">
+        <div onClick={() => deletePlace(place.id)} className="classdelete"><DeleteForever /></div>
         <CardContent>
-          {place.file.key !== 'public/undefined' && <img src={`https://${place.file.bucket}.s3.amazonaws.com/${place.file.key}`} /*className={classes.placeImg}*/ alt='place' />}
+          {place.file.key !== 'public/undefined' && <img src={`https://${place.file.bucket}.s3.amazonaws.com/${place.file.key}`} className="placeImg" alt='place' />}
           <Grid container spacing={2}>
             <Grid item xs={10}>
-              <Typography variant="h2" /*className={classes.placeCountry}*/>{place.country}</Typography>
+              <Typography variant="h2" className="placeCountry">{place.country}</Typography>
 
-              <Typography variant="body1" /*className={classes.placeCity}*/>{place.city}</Typography>
+              <Typography variant="body1" className="placeCity">{place.city}</Typography>
 
-              {place.description && <Typography variant="body1" /*className={classes.placeDescription}*/>{place.description}</Typography>}
+              {place.description && <Typography variant="body1" className="placeDescription">{place.description}</Typography>}
 
-              <Typography variant="body1" /*className={classes.placeDate}*/><strong>Date:</strong> {dayjs(place.dateVisitedFrom).format('DD/MM/YYYY')} - {dayjs(place.dateVisitedTo).format('DD/MM/YYYY')}</Typography>
+              <Typography variant="body1" className="placeDate"><strong>Date:</strong> {dayjs(place.dateVisitedFrom).format('DD/MM/YYYY')} - {dayjs(place.dateVisitedTo).format('DD/MM/YYYY')}</Typography>
 
             </Grid>
-            <Grid item xs={2}> <Typography variant="body1">{place.favourite && (<FavoriteBorderRounded />)}</Typography></Grid>
+            <Grid item xs={2}>
+              <Typography variant="body1">
+                {place.favourite && (<FavoriteBorderRounded />)}
+              </Typography>
+            </Grid>
           </Grid>
 
         </CardContent>
         <InfoOutlined />
       </Card>
-    </Grid>
+    </PlacesGridStyles>
   )
 }
 

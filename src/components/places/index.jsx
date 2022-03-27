@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
-
 import { API, graphqlOperation } from 'aws-amplify'
 import { listPlaces } from '../../graphql/queries'
 
@@ -14,6 +13,8 @@ import PlacesItem from './placesItem'
 
 import { Box, Typography, Grid } from '@mui/material';
 import PagesStyles from './styles';
+import CountryMap from '../countryMap';
+
 
 // const Places = ({ places: { data, loading, completeDeletedPlace }, getPlaces, deleteSelectedPlace}) => {
 const Places = () => {
@@ -21,7 +22,8 @@ const Places = () => {
   const [search, setSearch] = useState('');
   const [searchParam] = useState(["city", "country"]);
 
-
+  const [countryAPIData, setCountryAPIData] = useState([]);
+  const [countryFlagsData, setCountryFlagsData] = useState([]);
   // const [nextToken, setNextToken] = useState(null)
   // const [nextNextToken, setNextNextToken] = useState()
   // const [previousTokens, setPreviousTokens] = useState([])
@@ -70,11 +72,11 @@ const Places = () => {
   }
 
   // DELETE PLACE
-  const deletePlace = (place) => {
-    console.log('deleting....', place)
+  const deletePlace = (placeId) => {
+    console.log('deleting....', placeId)
 
     const deletedPlace = {
-      id: place,
+      id: placeId,
     };
 
     // Dispatch action - getPlaces passing the places array
@@ -141,16 +143,66 @@ const Places = () => {
 
         const res = await fetch("https://countriesnow.space/api/v0.1/countries/info?returns=currency,flag,unicodeFlag,dialCode", requestOptions);
 
-        const countryData = await res.json();
-        const countryDataFiltered = data.map((visitedPlace) => countryData.data.filter((country) => visitedPlace.country.toLowerCase() === country.name.toLowerCase()))
-        console.log(countryDataFiltered)
+        const countryFlagsData = await res.json();
+
+        // const countryDataFiltered = data.map((visitedPlace) => countryData.data.filter((country) => {
+        //   count++
+        //   return visitedPlace.country.toLowerCase() === country.name.toLowerCase()
+        // }))
+
+        const countryFlagsMap = countryFlagsData.data.reduce((map, country) => {
+          map[country.name.toLowerCase()] = country;
+          return map;
+        }, {})
+
+        const countryFlagDataFiltered = data.map((visitedPlace) => {
+          return countryFlagsMap[visitedPlace.country.toLowerCase()]
+        })
+        setCountryFlagsData(countryFlagDataFiltered)
+        // console.log('count', count)
+        // console.log('flags', countryFlagsMap)
+        //console.log('filtered', countryFlagDataFiltered);
 
       } catch (error) {
         console.log('error', error)
       }
     }
+
+    const getCountries = async () => {
+      try {
+        const requestOptions = {
+          method: 'GET',
+          redirect: 'follow'
+        };
+
+        const res = await fetch("https://countriesnow.space/api/v0.1/countries/positions", requestOptions);
+
+        const countryData = await res.json();
+
+        // console.log('COUNTRIES API', countryData.data)
+
+        const countriesMap = countryData.data.reduce((map, country) => {
+          map[country.name.toLowerCase()] = country;
+          return map;
+        }, {})
+
+        const countryDataFiltered = data.map((visitedPlace) => {
+          return countriesMap[visitedPlace.country.toLowerCase()]
+        })
+
+        setCountryAPIData(countryDataFiltered)
+
+        // console.log('All Countries', countriesMap)
+        //console.log('All Countries filtered', countryDataFiltered);
+
+      } catch (error) {
+        console.log('error', error)
+      }
+    }
+
     if (data && data?.length > 0) {
       fetchFlags();
+      getCountries();
     }
 
   }, [data]);
@@ -179,6 +231,10 @@ const Places = () => {
 
   return (
     <PagesStyles>
+      {/* MAP */}
+      <CountryMap data={data} countryAPIData={countryAPIData} />
+
+      {/* SEARCH */}
       {data.length > 0 &&
         <Search
           search={search}
@@ -187,11 +243,13 @@ const Places = () => {
           sortByASC={sortByASC}
         />
       }
+
+      {/* PLACES */}
       <Box className="container">
         <Grid container spacing={4}>
           {data.length > 0 ?
-            searchPlace(data).map((place, index) => (
-              <PlacesItem key={index} place={place} deletePlace={deletePlace} />
+            searchPlace(data).map((place) => (
+              <PlacesItem key={place.id} place={place} deletePlace={deletePlace} />
             )) : (
               <Grid item xs={12}>
                 <Typography variant="body1">You have not added any places yet.</Typography>

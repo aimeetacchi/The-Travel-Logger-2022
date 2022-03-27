@@ -18,6 +18,7 @@
     "aws-amplify": "^4.3.14",
     "dayjs": "^1.10.7",
     "lodash": "^4.17.21",
+    "mapbox-gl": "^2.7.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
