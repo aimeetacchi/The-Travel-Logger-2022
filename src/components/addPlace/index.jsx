@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux'
 
 import awsExports from '../../aws-exports'
 import AddPlaceStyles from './styles';
+import Select from 'react-select'
 
 import {
     TextField,
@@ -107,21 +108,49 @@ const AddPlace = () => {
         firstTimeRender.current = false
     }, [])
 
+    const colourStyles = {
+        menuList: styles => ({
+            ...styles,
+            background: '#22577A'
+        }),
+        option: (styles, { isFocused, isSelected }) => ({
+            ...styles,
+            background: isFocused
+                ? '#183c55'
+                : isSelected
+                    ? '#102a3b'
+                    : undefined,
+            zIndex: 1
+        }),
+        menu: base => ({
+            ...base,
+            zIndex: 100
+        })
+    }
+
+
+    const countries = [
+        { value: 'United Kingdom', label: 'United Kingdom' },
+        { value: 'Sweden', label: 'Sweden' },
+        { value: 'Norway', label: 'Norway' },
+        { value: 'Croatia', label: 'Croatia' },
+        { value: 'Italy', label: 'Italy' },
+        { value: 'Spain', label: 'Spain' },
+        { value: 'Japan', label: 'Japan' }
+    ]
+
     return (
         <AddPlaceStyles mb={5}>
             <form className="container" onSubmit={addPlace}>
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={6}>
-                        <TextField
-                            className="formField"
-                            label="Add Country"
-                            variant="outlined"
-                            color="secondary"
+                        <Select
                             required
-                            onChange={e => setInput('country', e.target.value)}
-                            value={formState.name}
-                            placeholder="Add Country"
-                        // error={countryErr}
+                            label="Single select"
+                            options={countries}
+                            styles={colourStyles}
+                            defaultValue={countries[0]}
+                            onChange={(value) => setInput('country', value.value)}
                         />
                     </Grid>
                     <Grid item xs={12} md={6}>
@@ -132,7 +161,7 @@ const AddPlace = () => {
                             color="secondary"
                             required
                             onChange={e => setInput('city', e.target.value)}
-                            value={formState.name}
+                            value={formState.city}
                             placeholder="Add City"
                         // error={cityErr}
                         />

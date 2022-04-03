@@ -5,8 +5,8 @@ import CountryMapStyles from './styles';
 mapboxgl.accessToken = 'pk.eyJ1IjoiYWltZWVzaGFkb3c4NCIsImEiOiJjbDE2ajI2Z24wZ2JyM2NzMWF2cHRzdDFnIn0.5g0sMXTYLEDb54qjg5qxrg';
 
 const CountryMap = ({data, countryAPIData}) => {
-    console.log('places data', data)
-    console.log('countryAPIDATA', countryAPIData)
+    // console.log('places data', data)
+    // console.log('countryAPIDATA', countryAPIData)
 
 
     useEffect(() => {
@@ -22,6 +22,7 @@ const CountryMap = ({data, countryAPIData}) => {
                     .setLngLat([long, lat])
                     .addTo(map)
                 ))
+                
 
                 // const nav = new mapboxgl.NavigationControl();
                 // map.addControl(nav, "top-right");
