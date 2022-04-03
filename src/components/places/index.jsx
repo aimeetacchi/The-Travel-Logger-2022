@@ -4,8 +4,8 @@ import _ from 'lodash'
 import { API, graphqlOperation } from 'aws-amplify'
 import { listPlaces } from '../../graphql/queries'
 
-import { getPlaces, deleteSelectedPlace, sortByAsc, sortByDesc } from '../../actions/places'
-import { useDispatch, useSelector } from 'react-redux'
+import { deleteSelectedPlace, sortByAsc, sortByDesc } from '../../actions/places'
+import { useDispatch } from 'react-redux'
 
 import Search from '../search'
 import PlacesItem from './placesItem'
@@ -15,9 +15,8 @@ import { Box, Typography, Grid } from '@mui/material';
 import PagesStyles from './styles';
 import CountryMap from '../countryMap';
 
-
 // const Places = ({ places: { data, loading, completeDeletedPlace }, getPlaces, deleteSelectedPlace}) => {
-const Places = ({data, loading, countryAPIData}) => {
+const Places = ({ data, loading, countryAPIData, countryFlagsData }) => {
 
   const [search, setSearch] = useState('');
   const [searchParam] = useState(["city", "country"]);
@@ -31,7 +30,7 @@ const Places = ({data, loading, countryAPIData}) => {
 
   const dispatch = useDispatch();
   // SEARCH FUNCTION
-  function searchPlace(items) {
+  const searchPlace = (items) => {
     return items.filter((item) => {
       return searchParam.some((newItem) => {
         return (
@@ -44,31 +43,22 @@ const Places = ({data, loading, countryAPIData}) => {
     });
   }
 
-  // SORT BY ASC
-  function sortByASC(value) {
-
-    console.log('sorting places by ascending order')
-
+  // SORT BY ASC - sorting places by ascending order
+  const sortByASC = (value) => {
     let sortedData = _.sortBy(data, value);
-    console.log(sortedData);
     // CALL DISPATCH TO UPDATE STATE
     dispatch(sortByAsc(sortedData))
   }
 
-  // SORT BY DESC
-  function sortByDESC(value) {
-
-    console.log('sorting places by descending order')
-
+  // SORT BY DESC - sorting places by descending order
+  const sortByDESC = (value) => {
     let sortedData = _.reverse(_.sortBy(data, value));
-    console.log(sortedData);
     // CALL DISPATCH TO UPDATE STATE
     dispatch(sortByDesc(sortedData))
   }
 
   // DELETE PLACE
   const deletePlace = (placeId) => {
-    
     console.log('deleting....', placeId)
 
     const deletedPlace = {
@@ -77,7 +67,6 @@ const Places = ({data, loading, countryAPIData}) => {
 
     // Dispatch action - getPlaces passing the places array
     dispatch(deleteSelectedPlace(deletedPlace))
-
   }
 
   // Change Page
@@ -92,8 +81,6 @@ const Places = ({data, loading, countryAPIData}) => {
   // }
 
   // const prevData = usePrevious({data});
-
-  
 
   if (loading) {
     return <span>loading data...</span>
@@ -120,7 +107,7 @@ const Places = ({data, loading, countryAPIData}) => {
   return (
     <PagesStyles>
       {/* MAP */}
-      <CountryMap data={data} countryAPIData={countryAPIData} />
+      <CountryMap countryAPIData={countryAPIData} />
 
       {/* SEARCH */}
       {data.length > 0 &&
@@ -156,7 +143,7 @@ const Places = ({data, loading, countryAPIData}) => {
 }
 
 Places.propTypes = {
-  data: PropTypes.object,
+  data: PropTypes.array,
 }
 
 // const mapStateToProps = state => ({

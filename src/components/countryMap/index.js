@@ -4,13 +4,13 @@ import CountryMapStyles from './styles';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiYWltZWVzaGFkb3c4NCIsImEiOiJjbDE2ajI2Z24wZ2JyM2NzMWF2cHRzdDFnIn0.5g0sMXTYLEDb54qjg5qxrg';
 
-const CountryMap = ({data, countryAPIData}) => {
-    // console.log('places data', data)
-    // console.log('countryAPIDATA', countryAPIData)
-
-
+const CountryMap = ({countryAPIData}) => {
     useEffect(() => {
-         const map = new mapboxgl.Map({
+
+        if (!mapboxgl.supported()) {
+            alert('Your browser does not support Mapbox GL');
+        } else {
+            const map = new mapboxgl.Map({
                 container: 'mapContainer',
                 style: 'mapbox://styles/mapbox/streets-v11',
                 center: [9.6255, 50.4181],
@@ -22,17 +22,15 @@ const CountryMap = ({data, countryAPIData}) => {
                     .setLngLat([long, lat])
                     .addTo(map)
                 ))
+        }
                 
-
-                // const nav = new mapboxgl.NavigationControl();
-                // map.addControl(nav, "top-right");
         // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [countryAPIData]);
          
         
 
     return (
-       <CountryMapStyles id="mapContainer" className="map"></CountryMapStyles>
+       <CountryMapStyles id="mapContainer" className="map"/>
     )
 }
 

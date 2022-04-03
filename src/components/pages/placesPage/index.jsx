@@ -15,6 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 const PlacesPage = () => {
     const [countryAPIData, setCountryAPIData] = useState([]);
     const [countryFlagsData, setCountryFlagsData] = useState([]);
+    const [countriesSelect, setCountriesSelect] = useState([]);
 
     const data = useSelector((state) => state.allPlaces.data);
     const loading = useSelector((state) => state.allPlaces.loading);
@@ -73,7 +74,6 @@ const PlacesPage = () => {
                 const countryFlagsData = await res.json();
 
                 // const countryDataFiltered = data.map((visitedPlace) => countryData.data.filter((country) => {
-                //   count++
                 //   return visitedPlace.country.toLowerCase() === country.name.toLowerCase()
                 // }))
 
@@ -86,8 +86,8 @@ const PlacesPage = () => {
                     return countryFlagsMap[visitedPlace.country.toLowerCase()]
                 })
                 setCountryFlagsData(countryFlagDataFiltered)
-                // console.log('count', count)
-                // console.log('flags', countryFlagsMap)
+
+                // console.log('flags', countryFlagsData)
                 //console.log('filtered', countryFlagDataFiltered);
 
             } catch (error) {
@@ -106,7 +106,16 @@ const PlacesPage = () => {
 
                 const countryData = await res.json();
 
-                // console.log('COUNTRIES API', countryData.data)
+                const select = countryData.data.map((country) => {
+                    const countries =
+                    {
+                        value: country.name,
+                        label: country.name
+                    }
+                    return countries
+                })
+
+                setCountriesSelect(select);
 
                 const countriesMap = countryData.data.reduce((map, country) => {
                     map[country.name.toLowerCase()] = country;
@@ -138,12 +147,12 @@ const PlacesPage = () => {
         <Grid container>
             <Grid item xs={12}>
                 <Container maxWidth="lg">
-                    <AddPlace />
+                    <AddPlace countriesSelect={countriesSelect} />
                 </Container>
             </Grid>
             <Grid item xs={12}>
                 <Container maxWidth="md">
-                    <Places data={data} loading={loading} countryAPIData={countryAPIData} />
+                    <Places data={data} loading={loading} countryAPIData={countryAPIData} countryFlagsData={countryFlagsData} />
                 </Container>
             </Grid>
         </Grid>

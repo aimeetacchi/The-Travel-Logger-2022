@@ -17,7 +17,7 @@ import {
 } from '@mui/material';
 
 
-const AddPlace = () => {
+const AddPlace = ({ countriesSelect }) => {
     const firstTimeRender = useRef(true);
 
     const [formState, setFormState] = useState({
@@ -128,16 +128,9 @@ const AddPlace = () => {
         })
     }
 
-
-    const countries = [
-        { value: 'United Kingdom', label: 'United Kingdom' },
-        { value: 'Sweden', label: 'Sweden' },
-        { value: 'Norway', label: 'Norway' },
-        { value: 'Croatia', label: 'Croatia' },
-        { value: 'Italy', label: 'Italy' },
-        { value: 'Spain', label: 'Spain' },
-        { value: 'Japan', label: 'Japan' }
-    ]
+    if (countriesSelect.length <= 0) {
+        return <span>loading form...</span>
+    }
 
     return (
         <AddPlaceStyles mb={5}>
@@ -146,10 +139,10 @@ const AddPlace = () => {
                     <Grid item xs={12} md={6}>
                         <Select
                             required
-                            label="Single select"
-                            options={countries}
+                            // label="Single select"
+                            options={countriesSelect}
                             styles={colourStyles}
-                            defaultValue={countries[0]}
+                            defaultValue={countriesSelect[227]}
                             onChange={(value) => setInput('country', value.value)}
                         />
                     </Grid>

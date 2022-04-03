@@ -14,7 +14,6 @@ const initialState = {
 const Places = (state = initialState, {type, payload}) => {
     switch (type) {
         case Types.SET_LOADING:
-            console.log('running set loading..');
             return {
                 ...state,
                 loading: true
@@ -43,7 +42,6 @@ const Places = (state = initialState, {type, payload}) => {
         //         nextnexttoken: payload,
         //     }
         case Types.COMPLETE_GET_PLACES:
-            console.log('running complete get places..');
             return {
                 ...state,
                 getComplete: true
