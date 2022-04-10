@@ -1,12 +1,33 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import CountryMapStyles from './styles';
 
-mapboxgl.accessToken = 'pk.eyJ1IjoiYWltZWVzaGFkb3c4NCIsImEiOiJjbDE2ajI2Z24wZ2JyM2NzMWF2cHRzdDFnIn0.5g0sMXTYLEDb54qjg5qxrg';
+import UseCountriesNowAPI from '../../helpers/apiUtils';
 
-const CountryMap = ({countryAPIData}) => {
+const CountryMap = ({data}) => {
+    mapboxgl.accessToken = process.env.REACT_APP_MAP_BOX_TOKEN
+    const [countryLongLatData, setCountryLongLatAPIData] = useState([]);
+    const { apiData } = UseCountriesNowAPI('https://countriesnow.space/api/v0.1/countries/positions');
+
     useEffect(() => {
+  
+        if(apiData) {
+            const countriesMap = apiData.data.reduce((map, country) => {
+                    map[country.name] = country;
+                    return map;
+                }, {})
 
+            const countryDataFiltered = data.map((visitedPlace) => {
+                return countriesMap[visitedPlace.country]
+            })
+
+            console.log('countryDataFiltered', countryDataFiltered)
+            setCountryLongLatAPIData(countryDataFiltered)
+        }
+    }, [data, apiData])
+
+    
+    useEffect(() => {
         if (!mapboxgl.supported()) {
             alert('Your browser does not support Mapbox GL');
         } else {
@@ -16,18 +37,14 @@ const CountryMap = ({countryAPIData}) => {
                 center: [9.6255, 50.4181],
                 zoom: 1,
                 });
-
-                countryAPIData.map(({lat, long}) => (
+                countryLongLatData.map(({lat, long}) => (
+                   
                     new mapboxgl.Marker()
                     .setLngLat([long, lat])
                     .addTo(map)
                 ))
         }
-                
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        }, [countryAPIData]);
-         
-        
+        }, [countryLongLatData]);
 
     return (
        <CountryMapStyles id="mapContainer" className="map"/>

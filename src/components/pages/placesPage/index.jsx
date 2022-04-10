@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+// import axios from 'axios';
 import { API, graphqlOperation } from 'aws-amplify'
 import { listPlaces } from '../../../graphql/queries'
 import { getPlaces } from '../../../actions/places'
@@ -13,17 +14,15 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 
 const PlacesPage = () => {
-    const [countryAPIData, setCountryAPIData] = useState([]);
-    const [countryFlagsData, setCountryFlagsData] = useState([]);
-    const [countriesSelect, setCountriesSelect] = useState([]);
+    // const [countriesSelect, setCountriesSelect] = useState([]);
+    // const [countryFlagsData, setCountryFlagsData] = useState([]);
+    
 
     const data = useSelector((state) => state.allPlaces.data);
     const loading = useSelector((state) => state.allPlaces.loading);
     const completeDeletedPlace = useSelector((state) => state.allPlaces.completeDeletedPlace);
 
     const dispatch = useDispatch();
-    // places: { data, loading, completeDeletedPlace }, getPlaces, deleteSelectedPlace
-
 
     useEffect(() => {
         // if(!_.isEmpty(data) && !_.isEqual(prevData, data)) {
@@ -61,85 +60,40 @@ const PlacesPage = () => {
     }, [completeDeletedPlace])
 
     useEffect(() => {
-        // FLAG API.
-        const fetchFlags = async () => {
-            try {
-                const requestOptions = {
-                    method: 'GET',
-                    redirect: 'follow'
-                };
+        // === FLAG API.
 
-                const res = await fetch("https://countriesnow.space/api/v0.1/countries/info?returns=currency,flag,unicodeFlag,dialCode", requestOptions);
+        // const fetchFlags = async () => {
+        //     try {
+        //         const requestOptions = {
+        //             method: 'GET',
+        //             redirect: 'follow'
+        //         };
 
-                const countryFlagsData = await res.json();
+        //         const res = await fetch("https://countriesnow.space/api/v0.1/countries/info?returns=currency,flag,unicodeFlag,dialCode", requestOptions);
 
-                // const countryDataFiltered = data.map((visitedPlace) => countryData.data.filter((country) => {
-                //   return visitedPlace.country.toLowerCase() === country.name.toLowerCase()
-                // }))
+        //         const countryFlagsData = await res.json();
 
-                const countryFlagsMap = countryFlagsData.data.reduce((map, country) => {
-                    map[country.name.toLowerCase()] = country;
-                    return map;
-                }, {})
+        //         // const countryDataFiltered = data.map((visitedPlace) => countryData.data.filter((country) => {
+        //         //   return visitedPlace.country.toLowerCase() === country.name.toLowerCase()
+        //         // }))
 
-                const countryFlagDataFiltered = data.map((visitedPlace) => {
-                    return countryFlagsMap[visitedPlace.country.toLowerCase()]
-                })
-                setCountryFlagsData(countryFlagDataFiltered)
+        //         const countryFlagsMap = countryFlagsData.data.reduce((map, country) => {
+        //             map[country.name.toLowerCase()] = country;
+        //             return map;
+        //         }, {})
 
-                // console.log('flags', countryFlagsData)
-                //console.log('filtered', countryFlagDataFiltered);
+        //         const countryFlagDataFiltered = data.map((visitedPlace) => {
+        //             return countryFlagsMap[visitedPlace.country.toLowerCase()]
+        //         })
+        //         setCountryFlagsData(countryFlagDataFiltered)
 
-            } catch (error) {
-                console.log('error', error)
-            }
-        }
+        //         // console.log('flags', countryFlagsData)
+        //         //console.log('filtered', countryFlagDataFiltered);
 
-        const getCountries = async () => {
-            try {
-                const requestOptions = {
-                    method: 'GET',
-                    redirect: 'follow'
-                };
-
-                const res = await fetch("https://countriesnow.space/api/v0.1/countries/positions", requestOptions);
-
-                const countryData = await res.json();
-
-                const select = countryData.data.map((country) => {
-                    const countries =
-                    {
-                        value: country.name,
-                        label: country.name
-                    }
-                    return countries
-                })
-
-                setCountriesSelect(select);
-
-                const countriesMap = countryData.data.reduce((map, country) => {
-                    map[country.name.toLowerCase()] = country;
-                    return map;
-                }, {})
-
-                const countryDataFiltered = data.map((visitedPlace) => {
-                    return countriesMap[visitedPlace.country.toLowerCase()]
-                })
-
-                setCountryAPIData(countryDataFiltered)
-
-                // console.log('All Countries', countriesMap)
-                //console.log('All Countries filtered', countryDataFiltered);
-
-            } catch (error) {
-                console.log('error', error)
-            }
-        }
-
-        if (data && data?.length > 0) {
-            fetchFlags();
-            getCountries();
-        }
+        //     } catch (error) {
+        //         console.log('error', error)
+        //     }
+        // }
 
     }, [data]);
 
@@ -147,12 +101,12 @@ const PlacesPage = () => {
         <Grid container>
             <Grid item xs={12}>
                 <Container maxWidth="lg">
-                    <AddPlace countriesSelect={countriesSelect} />
+                    <AddPlace />
                 </Container>
             </Grid>
             <Grid item xs={12}>
                 <Container maxWidth="md">
-                    <Places data={data} loading={loading} countryAPIData={countryAPIData} countryFlagsData={countryFlagsData} />
+                    <Places data={data} loading={loading} /*countryLongLatData={countryLongLatData}*/ />
                 </Container>
             </Grid>
         </Grid>

@@ -15,9 +15,14 @@ import {
     FormControlLabel,
     Grid,
 } from '@mui/material';
+import UseCountriesNowAPI from '../../helpers/apiUtils';
 
 
-const AddPlace = ({ countriesSelect }) => {
+const AddPlace = () => {
+    const [countriesSelect, setCountriesSelect] = useState([]);
+    const { apiData } = UseCountriesNowAPI('https://countriesnow.space/api/v0.1/countries');
+
+
     const firstTimeRender = useRef(true);
 
     const [formState, setFormState] = useState({
@@ -88,12 +93,32 @@ const AddPlace = ({ countriesSelect }) => {
         }
     }
 
-    // // Calling Add Place API function
-    // const callAPIcreatePlaces = (place) => {
-    //     // RUN ADD ACTION === PASSING THE RETURNED DATA ADDED TO API
+    useEffect(() => {
+        if (apiData) {
+            const select = apiData.data.map((country) => {
+                const countries =
+                {
+                    value: country.country,
+                    label: country.country
+                }
+                return countries
+            })
 
-    //     // Empty Form State ---
-    // }
+            const countryWithCitesData = apiData.data.map((country) => {
+
+                const countriesWithCities =
+                {
+                    country: country.country,
+                    cities: country.cities
+                }
+                return countriesWithCities
+            })
+            console.log('countryWithCities', countryWithCitesData)
+
+            setCountriesSelect(select);
+        }
+
+    }, [apiData])
 
     useEffect(() => {
 
@@ -132,6 +157,10 @@ const AddPlace = ({ countriesSelect }) => {
         return <span>loading form...</span>
     }
 
+    // Select the country - gets the value
+    // use that value then call the api to get the cities for that country
+    // which then populates the city select options with an array of cities.
+
     return (
         <AddPlaceStyles mb={5}>
             <form className="container" onSubmit={addPlace}>
@@ -147,7 +176,7 @@ const AddPlace = ({ countriesSelect }) => {
                         />
                     </Grid>
                     <Grid item xs={12} md={6}>
-                        <TextField
+                        {/* <TextField
                             className="formField"
                             label="Add City"
                             variant="outlined"
@@ -157,7 +186,7 @@ const AddPlace = ({ countriesSelect }) => {
                             value={formState.city}
                             placeholder="Add City"
                         // error={cityErr}
-                        />
+                        /> */}
                     </Grid>
                     <Grid item xs={12} md={6}>
                         <TextField

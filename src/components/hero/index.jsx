@@ -13,7 +13,7 @@ const Hero = () => {
     return (
         <HeroStyles>
             <Box className="heroContainer" >
-                <img className="hero" src='https://dev.d36e3rz9n8j44b.amplifyapp.com/assets/images/hero001.jpg' alt="hero" />
+                <img className="hero" src='/assets/images/hero001.jpg' alt="hero" />
 
                 <Container maxWidth="md">
                     <Box className="heroContent">

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
-import { API, graphqlOperation } from 'aws-amplify'
-import { listPlaces } from '../../graphql/queries'
 
 import { deleteSelectedPlace, sortByAsc, sortByDesc } from '../../actions/places'
 import { useDispatch } from 'react-redux'
@@ -15,9 +13,7 @@ import { Box, Typography, Grid } from '@mui/material';
 import PagesStyles from './styles';
 import CountryMap from '../countryMap';
 
-// const Places = ({ places: { data, loading, completeDeletedPlace }, getPlaces, deleteSelectedPlace}) => {
-const Places = ({ data, loading, countryAPIData, countryFlagsData }) => {
-
+const Places = ({ data, loading }) => {
   const [search, setSearch] = useState('');
   const [searchParam] = useState(["city", "country"]);
 
@@ -82,9 +78,7 @@ const Places = ({ data, loading, countryAPIData, countryFlagsData }) => {
 
   // const prevData = usePrevious({data});
 
-  if (loading) {
-    return <span>loading data...</span>
-  }
+  if (loading) <span>loading data...</span>
 
   // Get current place
   // const indexOfLastPlace = currentPage * placesPerPage;
@@ -107,7 +101,7 @@ const Places = ({ data, loading, countryAPIData, countryFlagsData }) => {
   return (
     <PagesStyles>
       {/* MAP */}
-      <CountryMap countryAPIData={countryAPIData} />
+      <CountryMap data={data} />
 
       {/* SEARCH */}
       {data.length > 0 &&
