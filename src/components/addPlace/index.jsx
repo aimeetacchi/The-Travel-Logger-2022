@@ -171,7 +171,7 @@ const AddPlace = () => {
                             // label="Single select"
                             options={countriesSelect}
                             styles={colourStyles}
-                            defaultValue={countriesSelect[227]}
+                            defaultValue={countriesSelect[216]}
                             onChange={(value) => setInput('country', value.value)}
                         />
                     </Grid>
