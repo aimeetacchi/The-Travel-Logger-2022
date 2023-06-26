@@ -6,6 +6,7 @@ import {
 } from '@mui/material';
 
 import HomeStyles from './styles';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
 
@@ -13,12 +14,21 @@ const Home = () => {
     <HomeStyles>
       <Box className="home">
         <Typography variant="body2">
-          Welcome to your Travel Logger, here you can keep a record of all your travels you have done. consectetur adipiscing elit. Proin at feugiat nulla, sitamet egestas est. Suspendisse facilisis lobortis neque, nec lobortis sapien feugiat eu. Quisque ac nulla semper, viverra tellus lobortis, ultrices lectus. Ut vel nunc pulvinar, tempus quam at, placerat enim. Phasellus consequat tellus id nisl venenatis lobortis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer diam arcu, pulvinar quis tortor at, bibendum blandit sem. Nulla eu vehicula diam. Ut eu orci justo. Sed sed tortor dictum, efficitur quam vel, fermentum lacus. Donec imperdiet sapien nec hendrerit tincidunt. Nam sit amet pharetra ipsum. Curabitur imperdiet dictum orci, eget efficitur ligula semper pellentesque
+          "Wanderlust Travelogue" is your personal, easy-to-use digital travel diary. It's crafted to capture the essence of your world travels, creating a vibrant visual record right on an interactive map. Every trip you take becomes a unique entry in this delightful journal.
         </Typography>
         <br />
-        <Typography variant="body2">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin at feugiat nulla, sitamet egestas est. Suspendisse facilisis lobortis neque, nec lobortis sapien feugiat eu. Quisque ac nulla semper, viverra tellus lobortis, ultrices lectus. Ut vel nunc pulvinar, tempus quam at, placerat enim. Phasellus consequat tellus id nisl venenatis lobortis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Integer diam arcu, pulvinar quis tortor at, bibendum blandit sem. Nulla eu vehicula diam. Ut eu orci justo. Sed sed tortor dictum, efficitur quam vel, fermentum lacus. Donec imperdiet sapien nec hendrerit tincidunt. Nam sit amet pharetra ipsum. Curabitur imperdiet dictum orci, eget efficitur ligula semper pellentesque
+        <Typography variant="body2"> 
+          Add personal touches to your travel tales by including photos from your destinations, along with the dates of your visits. You can also use our special feature to mark your most loved places. Whether it's the bustling city life of New York or the serene beaches of Bali, every beloved location gets its special spot in your diary.
         </Typography>
+        <br/>
+        <Typography variant="body2"> 
+          With "Wanderlust Travelogue", all your travel memories are just a click away. It serves as a comprehensive and vivid chronicle of your adventures. Whether you wish to take a trip down memory lane or plan your next voyage, our travelogue stands as your reliable partner. Your world travels, your way, beautifully captured and always accessible.<br/><br/><Link to="/signin"><strong>Sign up now</strong></Link>
+        </Typography>
+        <br/>
+        <Typography variant="body2">
+          This app is built with React, Redux, and Material UI.
+        </Typography>
+
       </Box>
     </HomeStyles>
   )

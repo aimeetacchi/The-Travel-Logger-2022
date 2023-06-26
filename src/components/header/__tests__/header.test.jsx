@@ -5,6 +5,6 @@ describe('Header component', () => {
 
     it('renders a header title', () => {
         Render(<Header />)
-        expect(screen.getByRole('heading', { name: 'Travel Logger' })).toBeInTheDocument()
+        expect(screen.getByRole('heading', { name: 'Wanderlust Travelogue' })).toBeInTheDocument()
     })
 })

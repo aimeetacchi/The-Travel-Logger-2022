@@ -38,7 +38,7 @@ const Header = ({ signOut, authState }) => {
                             <Link to="/">
                                 <Box className="verticallyAlign">
                                     <LocalAirport className="siteLogo" />
-                                    <Typography variant="h5" component="h1">Travel Logger</Typography>
+                                    <Typography variant="h5" component="h1">Wanderlust Travelogue</Typography>
                                 </Box>
                             </Link>
                         </Grid>

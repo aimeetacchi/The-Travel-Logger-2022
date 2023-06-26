@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 // import axios from 'axios';
 import { API, graphqlOperation } from 'aws-amplify'
 import { listPlaces } from '../../../graphql/queries'
@@ -17,7 +17,6 @@ const PlacesPage = () => {
     // const [countriesSelect, setCountriesSelect] = useState([]);
     // const [countryFlagsData, setCountryFlagsData] = useState([]);
     
-
     const data = useSelector((state) => state.allPlaces.data);
     const loading = useSelector((state) => state.allPlaces.loading);
     const completeDeletedPlace = useSelector((state) => state.allPlaces.completeDeletedPlace);
