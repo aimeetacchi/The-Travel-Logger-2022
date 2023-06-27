@@ -68,6 +68,7 @@ const App = () => {
             </Routes>
           </Container>
         </main>
+        <footer><small>Wanderlust Travelogue &copy; 2022. Developed by Aimee Tacchi </small></footer>
       </Box>
   );
 }

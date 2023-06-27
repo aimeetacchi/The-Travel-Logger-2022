@@ -17,7 +17,8 @@ const Hero = () => {
 
                 <Container maxWidth="md">
                     <Box className="heroContent">
-                        <Typography variant="h3" component="h1" align="center">Keep a collection of all the places you have travelled.</Typography>
+                        <Typography variant="h3" component="h1" align="center">Amass a record of every destination you've explored with</Typography>
+                        <Typography variant="h2" component="h2" align="center">Wanderlust Travelogue</Typography>
                     </Box>
                 </Container>
             </Box>
