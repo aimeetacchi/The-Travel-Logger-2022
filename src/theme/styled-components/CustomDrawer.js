@@ -1,10 +1,10 @@
 import { Drawer } from "@mui/material"
-import styled, { withTheme } from 'styled-components'
+import styled from 'styled-components'
 
 const CustomDrawer = styled(Drawer)`
 
     & .MuiDrawer-paper {
-        background-color: #22577A;
+        background-color: ${props => props.theme.palette.secondary.main};
         width: 30%;
 
         ${(props) => props.theme.breakpoints.down('md')} {
@@ -20,9 +20,7 @@ const CustomDrawer = styled(Drawer)`
             margin: 0 auto;
             max-width: 250;
         }
-
-    }
-    
+    } 
 `
 
-export default withTheme(CustomDrawer);
+export default CustomDrawer;
